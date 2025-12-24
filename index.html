@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>三平厝周府工程全案彙整系統</title>
+    <title>三平厝周府工程詳盡彙整系統</title>
     <style>
         :root {
             --primary: #2c3e50;
@@ -13,63 +13,64 @@
             --editable-bg: #fffde7;
         }
         body { font-family: "PingFang TC", "Microsoft JhengHei", sans-serif; background-color: var(--bg); color: var(--primary); padding: 20px; line-height: 1.6; }
-        .container { max-width: 950px; margin: auto; background: white; padding: 30px; border-radius: 12px; box-shadow: 0 5px 25px rgba(0,0,0,0.1); }
+        .container { max-width: 1000px; margin: auto; background: white; padding: 30px; border-radius: 12px; box-shadow: 0 5px 25px rgba(0,0,0,0.1); }
         
         h1 { text-align: center; margin-bottom: 5px; color: var(--primary); }
         .project-meta { text-align: center; color: #7f8c8d; font-size: 0.9em; margin-bottom: 30px; border-bottom: 2px solid #eee; padding-bottom: 15px; }
         
-        /* 總金額看板 */
         .dashboard { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-bottom: 30px; }
         .stat-card { background: white; border: 1px solid #ddd; padding: 15px; border-radius: 8px; text-align: center; transition: 0.3s; }
         .stat-card.total { background: var(--primary); color: white; border: none; }
         .stat-card h3 { margin: 0; font-size: 0.9em; opacity: 0.8; }
         .stat-card p { margin: 5px 0 0 0; font-size: 1.4em; font-weight: bold; font-family: 'Consolas', monospace; }
 
-        /* 公司分組區塊 */
-        .company-section { margin-bottom: 40px; }
-        .company-header { background: #ecf0f1; padding: 10px 20px; border-radius: 8px 8px 0 0; border-left: 6px solid var(--secondary); display: flex; justify-content: space-between; align-items: center; }
-        .company-header h2 { margin: 0; font-size: 1.2em; }
+        .company-section { margin-bottom: 40px; border: 1px solid #eee; border-radius: 8px; overflow: hidden; }
+        .company-header { background: #ecf0f1; padding: 15px 20px; border-left: 6px solid var(--secondary); display: flex; justify-content: space-between; align-items: center; }
+        .company-header h2 { margin: 0; font-size: 1.1em; }
+        .contact-info { font-size: 0.85em; color: #34495e; text-align: right; }
         
-        table { width: 100%; border-collapse: collapse; background: white; border: 1px solid #eee; }
-        th { background: #f8f9fa; padding: 12px; text-align: left; font-size: 0.85em; color: #7f8c8d; border-bottom: 2px solid #eee; }
-        td { padding: 12px; border-bottom: 1px solid #f1f1f1; vertical-align: middle; }
+        .project-block { padding: 20px; border-bottom: 1px solid #eee; }
+        .project-block:last-child { border-bottom: none; }
+        .project-title { font-weight: bold; color: var(--secondary); margin-bottom: 5px; display: flex; justify-content: space-between; align-items: center; }
+        .project-date { font-size: 0.85em; color: #7f8c8d; margin-bottom: 10px; display: block; }
         
-        /* 編輯樣式 */
-        [contenteditable="true"] { padding: 2px 5px; border-radius: 4px; transition: 0.2s; }
-        [contenteditable="true"]:hover { background: var(--editable-bg); outline: 1px dashed #e67e22; }
-        [contenteditable="true"]:focus { background: var(--editable-bg); outline: 2px solid var(--secondary); }
+        table { width: 100%; border-collapse: collapse; margin-top: 10px; font-size: 0.9em; }
+        th { background: #f8f9fa; padding: 10px; text-align: left; color: #7f8c8d; border-bottom: 1px solid #eee; }
+        td { padding: 10px; border-bottom: 1px solid #f9f9f9; }
         
-        .price-input { text-align: right; font-weight: bold; color: #e67e22; }
-        .receipt-link { font-size: 0.75em; color: #3498db; background: #ebf5fb; padding: 2px 6px; border-radius: 4px; text-decoration: none; display: inline-block; }
-        .receipt-link:hover { background: #d6eaf8; }
+        .subtotal-row { background: #fdfaf0; font-weight: bold; }
+        .subtotal-label { text-align: right; padding-right: 20px; color: #7f8c8d; }
+
+        [contenteditable="true"]:hover { background: var(--editable-bg); border-radius: 4px; }
+        .price-input { text-align: right; font-weight: bold; color: #e67e22; width: 120px; }
+        .project-subtotal-val { text-align: right; font-weight: bold; color: var(--primary); font-family: 'Consolas', monospace; }
+        .receipt-link { font-size: 0.85em; color: #3498db; text-decoration: none; border-bottom: 1px solid #3498db; }
         
         .remark-box { font-size: 0.85em; color: #e67e22; background: #fff5eb; padding: 10px; border-radius: 5px; margin-top: 10px; }
         
         @media print {
             body { background: white; padding: 0; }
             .container { box-shadow: none; border: none; }
-            [contenteditable="true"]:hover { background: none; outline: none; }
-            .receipt-link { color: black; background: none; border: 1px solid #ccc; }
+            .receipt-link { border: none; }
         }
     </style>
 </head>
 <body>
 
 <div class="container">
-    <h1 contenteditable="true">三平厝周府工程彙整清單</h1>
+    <h1 contenteditable="true">三平厝周府工程詳盡彙整清單</h1>
     <div class="project-meta">
-        <span contenteditable="true">更新日期：2025年12月23日</span> | 
-        <span contenteditable="true">工程地點：台東縣東河鎮</span>
+        <span contenteditable="true">最後更新日期：2025年12月24日</span>
     </div>
 
-    <!-- 統計看板 (自動加總) -->
+    <!-- 頂部統計看板 -->
     <div class="dashboard">
         <div class="stat-card">
-            <h3>蔡文彥 工程小計</h3>
+            <h3>姸川統合工程行 小計</h3>
             <p id="subtotal-tsai">NT$ 0</p>
         </div>
         <div class="stat-card">
-            <h3>福大鐡工廠 工程小計</h3>
+            <h3>福大鐡工廠 小計</h3>
             <p id="subtotal-fuda">NT$ 0</p>
         </div>
         <div class="stat-card total">
@@ -78,113 +79,225 @@
         </div>
     </div>
 
-    <!-- 公司 A: 蔡文彥 -->
-    <div class="company-section">
+    <!-- 承包商 A: 姸川統合工程行 -->
+    <div class="company-section" id="section-tsai">
         <div class="company-header">
-            <h2 contenteditable="true">工程單位：蔡文彥</h2>
+            <h2 contenteditable="true">承包單位：姸川統合工程行</h2>
+            <div class="contact-info" contenteditable="true">
+                連絡人：蔡文彥<br>
+                電話：0979-736712
+            </div>
         </div>
-        <table>
-            <thead>
-                <tr>
-                    <th style="width: 10%;">序號</th>
-                    <th style="width: 50%;">施工項目說明</th>
-                    <th style="width: 25%;">對應收據/證明</th>
-                    <th style="width: 15%; text-align: right;">金額 (NT$)</th>
-                </tr>
-            </thead>
-            <tbody id="tsai-body">
-                <tr>
-                    <td>工程 01</td>
-                    <td contenteditable="true">頂樓防水工程 (高壓清理、80坪施作、管理費)</td>
-                    <td>
-                        <a href="https://res.cloudinary.com/dm1ksvptk/image/upload/v1766460067/%E8%94%A1%E8%80%81%E9%97%86%E9%9B%BB-%E9%A0%82%E6%A8%93%E9%98%B2%E6%B0%B4%E5%B7%A5%E7%A8%8B_ehfgwx.jpg" target="_blank" class="receipt-link">查看頂樓防水收據 🔗</a>
-                    </td>
-                    <td class="price-input" contenteditable="true" oninput="calculate()">250000</td>
-                </tr>
-                <tr>
-                    <td>工程 02</td>
-                    <td contenteditable="true">改通2F排水管</td>
-                    <td>
-                        <a href="https://res.cloudinary.com/dm1ksvptk/image/upload/v1766459487/%E8%94%A1%E8%80%81%E9%97%86%E9%80%9A%E6%B0%B4%E7%AE%A1%E5%B7%A5%E7%A8%8B_anzbjg.jpg" target="_blank" class="receipt-link">查看通水管收據 🔗</a>
-                    </td>
-                    <td class="price-input" contenteditable="true" oninput="calculate()">13750</td>
-                </tr>
-                <tr>
-                    <td>工程 03</td>
-                    <td contenteditable="true">水系統與熱水供應 (電熱爐、水塔、馬達、太陽能拆除)</td>
-                    <td>
-                        <a href="https://res.cloudinary.com/dm1ksvptk/image/upload/v1766459914/%E8%94%A1%E8%80%81%E9%97%86%E9%9B%BB%E7%86%B1%E6%B0%B4%E5%99%A8-%E6%AC%84%E6%9D%86%E6%B2%B9%E6%BC%86-%E6%B0%B4%E5%A1%94%E5%B7%A5%E7%A8%8B_lgtokn.jpg" target="_blank" class="receipt-link">查看水系統工程收據 🔗</a>
-                    </td>
-                    <td class="price-input" contenteditable="true" oninput="calculate()">69800</td>
-                </tr>
-                <tr>
-                    <td>工程 05</td>
-                    <td contenteditable="true">室內燈具安裝與收尾 (造型燈具組、管理費與另料)</td>
-                    <td>
-                        <a href="https://res.cloudinary.com/dm1ksvptk/image/upload/v1766461472/1%E8%94%A1%E8%80%81%E9%97%86%E9%9B%BB-%E5%AE%A4%E5%85%A7%E5%90%B8%E9%A0%82%E7%87%88%E5%8F%8A%E9%A6%AC%E9%81%94%E6%96%BD%E4%BD%9C%E5%B7%A5%E7%A8%8B_mapo9g.jpg" target="_blank" class="receipt-link">查看燈具/馬達最新收據 🔗</a>
-                    </td>
-                    <td class="price-input" contenteditable="true" oninput="calculate()">16500</td>
-                </tr>
-            </tbody>
-        </table>
-        <div class="remark-box" contenteditable="true">註記：工程 03 原始金額 84,800 已扣除爬梯 15,000 元；工程 05 金額修正為 $18,900 - 1,500 = 16,500$。</div>
+
+        <!-- 001: 2024/12/29 -->
+        <div class="project-block" data-project="001">
+            <div class="project-title">
+                <span contenteditable="true">工程 001：蔡老闆防颱板油漆工程</span>
+                <a href="https://res.cloudinary.com/dm1ksvptk/image/upload/v1766540390/%E8%94%A1%E8%80%81%E9%97%86%E6%B2%B9%E6%BC%86%E5%B7%A5%E7%A8%8B%E5%B0%BE%E6%AC%BE_f9naj8.jpg" target="_blank" class="receipt-link">查看收據 🔗</a>
+            </div>
+            <span class="project-date" contenteditable="true">施工日期：2024/12/29-2025/01/08</span>
+            <table>
+                <thead>
+                    <tr><th>明細項目</th><th style="width: 20%; text-align: center;">狀態</th><th style="text-align: right;">金額</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td contenteditable="true">1. 防颱板油漆工程 - 前金</td><td style="text-align: center;">已支付</td><td class="price-input" contenteditable="true" oninput="calculate()">35000</td></tr>
+                    <tr><td contenteditable="true">2. 防颱板油漆工程 - 尾款</td><td style="text-align: center;">已支付</td><td class="price-input" contenteditable="true" oninput="calculate()">40000</td></tr>
+                </tbody>
+                <tfoot>
+                    <tr class="subtotal-row">
+                        <td colspan="2" class="subtotal-label">本項工程小計</td>
+                        <td class="project-subtotal-val">0</td>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+
+        <!-- 002: 2025/01/13 -->
+        <div class="project-block" data-project="002">
+            <div class="project-title">
+                <span contenteditable="true">工程 002：蔡老闆水塔與熱水建置 (明細 0-13)</span>
+                <a href="https://res.cloudinary.com/dm1ksvptk/image/upload/v1766459914/%E8%94%A1%E8%80%81%E9%97%86%E9%9B%BB%E7%86%B1%E6%B0%B4%E5%99%A8-%E6%AC%84%E6%9D%86%E6%B2%B9%E6%BC%86-%E6%B0%B4%E5%A1%94%E5%B7%A5%E7%A8%8B_lgtokn.jpg" target="_blank" class="receipt-link">查看原件 🔗</a>
+            </div>
+            <span class="project-date" contenteditable="true">施工日期：2025/01/13</span>
+            <table>
+                <thead>
+                    <tr><th>編號</th><th>明細項目</th><th style="width: 15%; text-align: center;">數量</th><th style="text-align: right;">金額</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td style="text-align: center;">0</td><td contenteditable="true">原太陽能移除運棄</td><td>1 式</td><td class="price-input" contenteditable="true" oninput="calculate()">8000</td></tr>
+                    <tr><td style="text-align: center;">1</td><td contenteditable="true">20加侖快熱電熱爐</td><td>1 檯</td><td class="price-input" contenteditable="true" oninput="calculate()">14800</td></tr>
+                    <tr><td style="text-align: center;">2</td><td contenteditable="true">6K鈦加熱器</td><td>1 組</td><td class="price-input" contenteditable="true" oninput="calculate()">2500</td></tr>
+                    <tr><td style="text-align: center;">3</td><td contenteditable="true">欄杆油漆大工</td><td>1.5 工</td><td class="price-input" contenteditable="true" oninput="calculate()">4800</td></tr>
+                    <tr><td style="text-align: center;">4</td><td contenteditable="true">欄杆漆料及耗材</td><td>1 式</td><td class="price-input" contenteditable="true" oninput="calculate()">3200</td></tr>
+                    <tr><td style="text-align: center;">5</td><td contenteditable="true">水電工</td><td>3 工</td><td class="price-input" contenteditable="true" oninput="calculate()">10500</td></tr>
+                    <tr><td style="text-align: center;">6</td><td contenteditable="true">小工</td><td>2 工</td><td class="price-input" contenteditable="true" oninput="calculate()">4000</td></tr>
+                    <tr><td style="text-align: center;">7</td><td contenteditable="true">1頓臥式不銹鋼水塔</td><td>1 組</td><td class="price-input" contenteditable="true" oninput="calculate()">11000</td></tr>
+                    <tr><td style="text-align: center;">8</td><td contenteditable="true">1HP電子恆壓加壓馬達</td><td>1 組</td><td class="price-input" contenteditable="true" oninput="calculate()">6500</td></tr>
+                    <tr><td style="text-align: center;">9</td><td contenteditable="true">更換另料零件</td><td>1 式</td><td class="price-input" contenteditable="true" oninput="calculate()">2500</td></tr>
+                    <tr><td style="text-align: center;">10</td><td contenteditable="true">水電/小工安裝費</td><td>1 式</td><td class="price-input" contenteditable="true" oninput="calculate()">7300</td></tr>
+                    <tr><td style="text-align: center;">11</td><td contenteditable="true">管理費</td><td>1 式</td><td class="price-input" contenteditable="true" oninput="calculate()">4000</td></tr>
+                    <tr style="color: #999;"><td style="text-align: center;">12</td><td contenteditable="true">高420不銹鋼爬梯 (已刪除)</td><td>-</td><td class="price-input" contenteditable="true" oninput="calculate()">0</td></tr>
+                    <tr><td style="text-align: center;">13</td><td contenteditable="true">現場雜項清理費</td><td>1 式</td><td class="price-input" contenteditable="true" oninput="calculate()">0</td></tr>
+                </tbody>
+                <tfoot>
+                    <tr class="subtotal-row">
+                        <td colspan="3" class="subtotal-label">本項工程小計</td>
+                        <td class="project-subtotal-val">0</td>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+
+        <!-- 003: 2025/01/17 -->
+        <div class="project-block" data-project="003">
+            <div class="project-title">
+                <span contenteditable="true">工程 003：排水系統改善</span>
+                <a href="https://res.cloudinary.com/dm1ksvptk/image/upload/v1766459487/%E8%94%A1%E8%80%81%E9%97%86%E9%80%9A%E6%B0%B4%E7%AE%A1%E5%B7%A5%E7%A8%8B_anzbjg.jpg" target="_blank" class="receipt-link">查看原件 🔗</a>
+            </div>
+            <span class="project-date" contenteditable="true">施工日期：2025/01/17</span>
+            <table>
+                <thead>
+                    <tr><th>明細項目</th><th style="width: 20%; text-align: center;">數量</th><th style="text-align: right;">金額</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td contenteditable="true">1. 2F 排水管改通施作 (含人工與另料)</td><td>1 式</td><td class="price-input" contenteditable="true" oninput="calculate()">13750</td></tr>
+                </tbody>
+                <tfoot>
+                    <tr class="subtotal-row">
+                        <td colspan="2" class="subtotal-label">本項工程小計</td>
+                        <td class="project-subtotal-val">0</td>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+
+        <!-- 004: 2025/03/10 -->
+        <div class="project-block" data-project="004">
+            <div class="project-title">
+                <span contenteditable="true">工程 004：蔡老闆頂樓防水工程</span>
+                <a href="https://res.cloudinary.com/dm1ksvptk/image/upload/v1766460067/%E8%94%A1%E8%80%81%E9%97%86%E9%9B%BB-%E9%A0%82%E6%A8%93%E9%98%B2%E6%B0%B4%E5%B7%A5%E7%A8%8B_ehfgwx.jpg" target="_blank" class="receipt-link">查看原件 🔗</a>
+            </div>
+            <span class="project-date" contenteditable="true">施工日期：2025/03/10-2025/03/25</span>
+            <table>
+                <thead>
+                    <tr><th>明細項目</th><th style="width: 20%; text-align: center;">規模</th><th style="text-align: right;">金額</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td contenteditable="true">1. 原地面高壓清洗清理</td><td>1 式</td><td class="price-input" contenteditable="true" oninput="calculate()">12000</td></tr>
+                    <tr><td contenteditable="true">2. 專業防水施作 (含三層塗料)</td><td>80 坪</td><td class="price-input" contenteditable="true" oninput="calculate()">224000</td></tr>
+                    <tr><td contenteditable="true">3. 工程現場管理費</td><td>1 式</td><td class="price-input" contenteditable="true" oninput="calculate()">14000</td></tr>
+                </tbody>
+                <tfoot>
+                    <tr class="subtotal-row">
+                        <td colspan="2" class="subtotal-label">本項工程小計</td>
+                        <td class="project-subtotal-val">0</td>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+
+        <!-- 005: 2025/04/07 -->
+        <div class="project-block" data-project="005">
+            <div class="project-title">
+                <span contenteditable="true">工程 005：室內燈具與收尾</span>
+                <a href="https://res.cloudinary.com/dm1ksvptk/image/upload/v1766461472/1%E8%94%A1%E8%80%81%E9%97%86%E9%9B%BB-%E5%AE%A4%E5%85%A7%E5%90%B8%E9%A0%82%E7%87%88%E5%8F%8A%E9%A6%AC%E9%81%94%E6%96%BD%E4%BD%9C%E5%B7%A5%E7%A8%8B_mapo9g.jpg" target="_blank" class="receipt-link">查看原件 🔗</a>
+            </div>
+            <span class="project-date" contenteditable="true">施工日期：2025/04/07</span>
+            <table>
+                <thead>
+                    <tr><th>明細項目</th><th style="width: 20%; text-align: center;">數量</th><th style="text-align: right;">金額</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td contenteditable="true">1. GA11系列吸頂造型燈具與節能燈泡</td><td>3 組</td><td class="price-input" contenteditable="true" oninput="calculate()">10400</td></tr>
+                    <tr><td contenteditable="true">2. 室內水電收尾與管理另料費</td><td>1 式</td><td class="price-input" contenteditable="true" oninput="calculate()">6100</td></tr>
+                </tbody>
+                <tfoot>
+                    <tr class="subtotal-row">
+                        <td colspan="2" class="subtotal-label">本項工程小計</td>
+                        <td class="project-subtotal-val">0</td>
+                    </tr>
+                </tfoot>
+            </table>
+            <div class="remark-box" contenteditable="true">註：金額原為 18,900 元，經修正扣除 1,500 元。</div>
+        </div>
     </div>
 
-    <!-- 公司 B: 福大鐡工廠 -->
-    <div class="company-section">
+    <!-- 承包商 B: 福大鐡工廠 -->
+    <div class="company-section" id="section-fuda">
         <div class="company-header">
-            <h2 contenteditable="true">工程單位：福大鐡工廠</h2>
+            <h2 contenteditable="true">承包單位：福大鐡工廠</h2>
+            <div class="contact-info" contenteditable="true">
+                連絡人：古永福<br>
+                備註：冷氣支架施作
+            </div>
         </div>
-        <table>
-            <thead>
-                <tr>
-                    <th style="width: 10%;">序號</th>
-                    <th style="width: 50%;">施工項目說明</th>
-                    <th style="width: 25%;">對應收據/證明</th>
-                    <th style="width: 15%; text-align: right;">金額 (NT$)</th>
-                </tr>
-            </thead>
-            <tbody id="fuda-body">
-                <tr>
-                    <td>工程 04</td>
-                    <td contenteditable="true">空調系統固定工程 (6座冷氣固定支架、白鐵角鋼)</td>
-                    <td>
-                        <a href="https://res.cloudinary.com/dm1ksvptk/image/upload/v1766460458/S__4481065_trobn9.jpg" target="_blank" class="receipt-link">查看空調支架收據 🔗</a>
-                    </td>
-                    <td class="price-input" contenteditable="true" oninput="calculate()">35000</td>
-                </tr>
-            </tbody>
-        </table>
-        <div class="remark-box" contenteditable="true">註記：由福大鐡工廠古永福先生負責施作。</div>
+        
+        <!-- 006: 2024/06/04 -->
+        <div class="project-block" data-project="006">
+            <div class="project-title">
+                <span contenteditable="true">工程 006：空調支架固定工程</span>
+                <a href="https://res.cloudinary.com/dm1ksvptk/image/upload/v1766460458/S__4481065_trobn9.jpg" target="_blank" class="receipt-link">查看原件 🔗</a>
+            </div>
+            <span class="project-date" contenteditable="true">施工日期：2024/06/04</span>
+            <table>
+                <thead>
+                    <tr><th>明細項目</th><th style="width: 20%; text-align: center;">數量</th><th style="text-align: right;">金額</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td contenteditable="true">1. 冷氣室外機固定座安裝 (含白鐵角鋼)</td><td>6 座</td><td class="price-input" contenteditable="true" oninput="calculate()">35000</td></tr>
+                </tbody>
+                <tfoot>
+                    <tr class="subtotal-row">
+                        <td colspan="2" class="subtotal-label">本項工程小計</td>
+                        <td class="project-subtotal-val">0</td>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
     </div>
 
     <div style="text-align: center; color: #bdc3c7; font-size: 0.8em; margin-top: 50px;">
-        © 2025 三平厝周府工程管理系統
+        © 2025 三平厝周府工程管理系統 | 內部查帳專用
     </div>
 </div>
 
 <script>
     function calculate() {
-        // 計算 蔡文彥 小計
+        let grandTotal = 0;
+
+        // 計算 姸川統合工程行 (Tsai)
         let tsaiTotal = 0;
-        const tsaiPrices = document.querySelectorAll('#tsai-body .price-input');
-        tsaiPrices.forEach(cell => {
-            let val = parseInt(cell.innerText.replace(/,/g, '').replace(/NT\$/g, '')) || 0;
-            tsaiTotal += val;
+        const tsaiBlocks = document.querySelectorAll('#section-tsai .project-block');
+        tsaiBlocks.forEach(block => {
+            let projectSubtotal = 0;
+            const inputs = block.querySelectorAll('.price-input');
+            inputs.forEach(input => {
+                let val = parseInt(input.innerText.replace(/,/g, '')) || 0;
+                projectSubtotal += val;
+            });
+            block.querySelector('.project-subtotal-val').innerText = projectSubtotal.toLocaleString();
+            tsaiTotal += projectSubtotal;
         });
         document.getElementById('subtotal-tsai').innerText = 'NT$ ' + tsaiTotal.toLocaleString();
 
-        // 計算 福大鐡工廠 小計
+        // 計算 福大鐡工廠 (Fuda)
         let fudaTotal = 0;
-        const fudaPrices = document.querySelectorAll('#fuda-body .price-input');
-        fudaPrices.forEach(cell => {
-            let val = parseInt(cell.innerText.replace(/,/g, '').replace(/NT\$/g, '')) || 0;
-            fudaTotal += val;
+        const fudaBlocks = document.querySelectorAll('#section-fuda .project-block');
+        fudaBlocks.forEach(block => {
+            let projectSubtotal = 0;
+            const inputs = block.querySelectorAll('.price-input');
+            inputs.forEach(input => {
+                let val = parseInt(input.innerText.replace(/,/g, '')) || 0;
+                projectSubtotal += val;
+            });
+            block.querySelector('.project-subtotal-val').innerText = projectSubtotal.toLocaleString();
+            fudaTotal += projectSubtotal;
         });
         document.getElementById('subtotal-fuda').innerText = 'NT$ ' + fudaTotal.toLocaleString();
 
-        // 計算 總計
-        const grandTotal = tsaiTotal + fudaTotal;
+        // 總計
+        grandTotal = tsaiTotal + fudaTotal;
         document.getElementById('grand-total').innerText = 'NT$ ' + grandTotal.toLocaleString();
     }
 
